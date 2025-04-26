@@ -37,5 +37,6 @@ jobs:
           files: |
             go-port-redirect-darwin-amd64
             go-port-redirect-darwin-arm64
-            go-port-redirect-linux
+            go-port-redirect-darwin-amd64
+            go-port-redirect-darwin-arm64
             go-port-redirect-windows.exe
