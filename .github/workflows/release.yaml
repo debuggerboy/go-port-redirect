@@ -1,1 +1,41 @@
+name: "Build and Release Go Port Redirect"
 
+on:
+  push:
+    branches:
+    - main
+
+jobs:
+  build-release:
+    name: "Build and Release"
+    runs-on: ubuntu-latest
+    permissions: write-all
+
+    steps:
+      - name: "Checkout latest codebase"
+        uses: actions/checkout@v3
+
+      - name: "Setup Go Language version"
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.22.4'
+
+      - name: "Verify Go Language version"
+        run: go version
+
+      - name: "Build binaries for Go Port Redirect"
+        run: make build
+
+      - name: "List files"
+        run: ls -liFhR
+
+      - name: "Create a release"
+        uses: softprops/action-gh-release@v2
+        with:
+          name: ${{ github.run.id }}
+          tag_name: ${{ github.ref_name }}
+          files: |
+            go-port-redirect-darwin-amd64
+            go-port-redirect-darwin-arm64
+            go-port-redirect-linux
+            go-port-redirect-windows.exe
